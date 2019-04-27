@@ -8,7 +8,7 @@ CDD <- function(a)
   a <- as.numeric(a)
   a[a >= 1] <- 1
   a[a < 1] <- 0 
-  CDD <- suppressWarnings(max((!a) * unlist(lapply(rle(a)$lengths, seq_len)),na.rm=T))
+  CDD <- suppressWarnings(max((!a) * unlist(lapply(rle(a)$lengths, seq_len)), na.rm = T))
   if (CDD == -Inf){CDD <- NA}
   return(CDD)
   
@@ -62,8 +62,6 @@ onSet <- function(zoo_ts, iY = "1981", fY = "2016")
     split(., ceiling(seq_along(.)/length(sub_dates)))
   
   p95 = quantile(unlist(zoo_ts), .95)
-  
-  zoo_ts =
   
   lapply(zoo_ts, function(season){      
     
