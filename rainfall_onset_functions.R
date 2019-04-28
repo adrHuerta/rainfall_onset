@@ -26,8 +26,9 @@ dClim <- function(zoo_ts)
   {
   
   zoo_ts <- not_29(zoo_ts)
-  zoo_ts %>% time %>% .[c(182:365,1:181)] %>% format("%m-%d") %>% #Year since July 1st
-    sapply(function(z) zoo_ts[format(time(zoo_ts), "%m-%d") %in% z] %>% mean )
+  #zoo_ts %>% time %>% .[c(182:365,1:181)] %>% format("%m-%d") %>% #Year since July 1st
+  zoo_ts %>% time %>% .[c(213:365,1:212)] %>% format("%m-%d") %>% #Year since August 1st
+      sapply(function(z) zoo_ts[format(time(zoo_ts), "%m-%d") %in% z] %>% mean )
   
   }
 
@@ -45,7 +46,7 @@ wSeason <- function(zoo_ts)
   
   }
 
-onSet <- function(zoo_ts, iY = "1981", fY = "2016", wInd = 30)
+onSet <- function(zoo_ts, iY = "1981", fY = "2016", wInd = 45)
   {
   
   parms <- wSeason(zoo_ts)
@@ -87,7 +88,7 @@ onSet <- function(zoo_ts, iY = "1981", fY = "2016", wInd = 30)
     
     D <- cumsum(season - R_ave)
     zoo::coredata(D)
-  }) %>% do.call(rbind, .) -> D_season
+  }) %>% do.call(cbind, .) -> D_season
   
   list(ext_ind = ext_ind,
        D_season = D_season,
