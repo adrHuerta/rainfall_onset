@@ -12,7 +12,7 @@ Given a [sample dataset](https://github.com/adrHuerta/rainfall_onset/blob/master
 
 
 <p align="center">
-![Alt tex](images/est3.png)
+![Alt tex](/images/est3.png)
 </p>
 
 
@@ -20,7 +20,7 @@ Identified the onset-cessation range by each year of "Est3", is possible to calc
 
 
 <p align="center">
-![Alt tex](images/onset_timeseries.png)
+![Alt tex](/images/onset_timeseries.png)
 </p>
 
 
