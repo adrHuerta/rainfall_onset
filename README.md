@@ -11,17 +11,12 @@ The metodology is divided in three steps: 1) calculation of the anomalous accumu
 Given a [sample dataset](https://github.com/adrHuerta/rainfall_onset/blob/master/data) which comes from [PISCOp](http://iridl.ldeo.columbia.edu/SOURCES/.SENAMHI/.HSR/.PISCO/.Prec/.v2p1/.stable/.daily/), it is calculated the anomalous accumulation climatology ("black") and daily cumulative rainfal anomaly by each year from 1982 to 2016 (gray) for station "Est3". Here, the axis range is from 08-04 (d_i - wInd) to 05-12 (d_f + wInd). It can be seen the changing dates by year of the onset and cessation.
 
 
-<p align="center">
-![Alt tex](/images/est3.png)
+<p aling = "center">
+    <img src="/images/est3.png" width="220" height="240" />
 </p>
 
 
 Identified the onset-cessation range by each year of "Est3", is possible to calcule the different extreme indices, here, the numeric values of the onset for "Est3", and the other stations. Other defined indices can be computed (see example.R).
-
-
-<p align="center">
-![Alt tex](/images/onset_timeseries.png)
-</p>
 
 
 ## References
