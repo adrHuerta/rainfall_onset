@@ -10,7 +10,7 @@ CDD <- function(a)
   a[a < 1] <- 0 
   CDD <- suppressWarnings(max((!a) * unlist(lapply(rle(a)$lengths, seq_len)), na.rm = T))
   if (CDD == -Inf){CDD <- NA}
-  return(CDD)
+  CDD
   
   }
 
@@ -25,31 +25,33 @@ not_29 <- function(zoo_ts)
 dClim <- function(zoo_ts)
   {
   
-  zoo_ts[1:365] %>% time %>% format("%m-%d") %>%
+  zoo_ts <- not_29(zoo_ts)
+  zoo_ts %>% time %>% .[c(182:365,1:181)] %>% format("%m-%d") %>% #Year since July 1st
     sapply(function(z) zoo_ts[format(time(zoo_ts), "%m-%d") %in% z] %>% mean )
   
   }
 
-wSeason <- function(zoo_ts, wInd = 30)
+wSeason <- function(zoo_ts)
   {
   
   zoo_ts <- not_29(zoo_ts)
   d_clim <- dClim(zoo_ts)
   R_ave <- mean(zoo_ts)
   d <- cumsum(d_clim - R_ave)
-  i_wet <- zoo_ts[match(min(d), d)] %>% time() - wInd
-  f_wet <- zoo_ts[match(max(d), d)] %>% time() + wInd + 365
-  return(list(d = d, i_wet = i_wet, f_wet = f_wet, zoo_ts = zoo_ts, R_ave = R_ave))
+  f_wet <- zoo_ts[match(min(d), d)] %>% time()
+  i_wet <- zoo_ts[match(max(d), d)] %>% time()
+  
+  list(d = d, i_wet = i_wet, f_wet = f_wet, zoo_ts = zoo_ts, R_ave = R_ave)
   
   }
 
-onSet <- function(zoo_ts, iY = "1981", fY = "2016")
+onSet <- function(zoo_ts, iY = "1981", fY = "2016", wInd = 30)
   {
   
   parms <- wSeason(zoo_ts)
   zoo_ts <- parms$zoo_ts
-  i_wet <- parms$i_wet
-  f_wet <- parms$f_wet
+  i_wet <- parms$i_wet - wInd
+  f_wet <- parms$f_wet + wInd + 365
   R_ave <- parms$R_ave
   sub_dates <- format(time(window(zoo_ts, 
                                  start = i_wet, 
@@ -65,9 +67,9 @@ onSet <- function(zoo_ts, iY = "1981", fY = "2016")
   
   lapply(zoo_ts, function(season){      
     
-    Sacum = cumsum(season - R_ave)
-    onset = time(Sacum[Sacum == min(Sacum)])
-    cessation = time(Sacum[Sacum == max(Sacum)])
+    D <- cumsum(season - R_ave)
+    onset = time(D[D == min(D)])
+    cessation = time(D[D == max(D)])
     
     oC = zoo::coredata(window(season, start = onset, end = cessation))
     
@@ -79,7 +81,17 @@ onSet <- function(zoo_ts, iY = "1981", fY = "2016")
     
     data.frame(onset, cessation, rd, r, sdii, r95sum, cdd)
     
-  }) %>% do.call(rbind, .) %>% return() 
+  }) %>% do.call(rbind, .) -> ext_ind 
+  
+  lapply(zoo_ts, function(season){      
+    
+    D <- cumsum(season - R_ave)
+    zoo::coredata(D)
+  }) %>% do.call(rbind, .) -> D_season
+  
+  list(ext_ind = ext_ind,
+       D_season = D_season,
+       wseason_wInd = c(i_wet, f_wet) %>% format("%m-%d"))
   
   }
   
