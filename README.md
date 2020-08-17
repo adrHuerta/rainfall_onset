@@ -1,6 +1,8 @@
 # rainfall_onset
 
-Several approaches have been developed over the years for analysing the onset and cessation  of rainfall seasons. Here, it is used the method of [Zhang et al. (2018)](https://doi.org/10.5194/bg-15-319-2018) which is based on the work of [Liebmann et al. (2012)](https://doi.org/10.1175/JCLI-D-11-00157.1).
+Several approaches have been developed over the years for analysing the onset and cessation  of rainfall seasons. Here, it is used the method of [Zhang et al. (2018)](https://doi.org/10.5194/bg-15-319-2018) which is based on the work of [Liebmann et al. (2012)](https://doi.org/10.1175/JCLI-D-11-00157.1).ere
+
+**There is an updated version of this code in [adrHuerta/rainfall_onset2](https://github.com/adrHuerta/rainfall_onset2) for gridded data.**
 
 ## Method
 
