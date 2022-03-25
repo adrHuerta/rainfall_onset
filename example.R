@@ -1,3 +1,5 @@
+# rainy season for southern hemisphere (October to March (the following year))
+
 rm(list = ls())
 source('rainfall_onset_functions.R')
 

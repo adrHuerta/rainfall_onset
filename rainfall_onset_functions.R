@@ -1,4 +1,5 @@
 #install.packages("magrittr"); #install.packages("zoo")
+# rainy season for southern hemisphere (October to March (the following year))
 
 `%>%` = magrittr::`%>%`
 
